@@ -1,7 +1,6 @@
 from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
-from prophecy.utils import *
 from web_ingest.config.ConfigStore import *
 from web_ingest.udfs.UDFs import *
 from prophecy.utils import *
@@ -27,8 +26,14 @@ def main():
     Utils.initializeFromArgs(spark, parse_args())
     spark.conf.set("prophecy.metadata.pipeline.uri", "pipelines/web_ingest")
     registerUDFs(spark)
-    
-    MetricsCollector.start(spark = spark, pipelineId = "pipelines/web_ingest")
+
+    try:
+        
+        MetricsCollector.start(spark = spark, pipelineId = "pipelines/web_ingest", config = Config)
+    except :
+        
+        MetricsCollector.start(spark = spark, pipelineId = "pipelines/web_ingest")
+
     pipeline(spark)
     MetricsCollector.end(spark)
 

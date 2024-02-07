@@ -1,15 +1,19 @@
 {
   "metainfo" : {
+    "migrationVersions" : {
+      "gemBuilderVersion" : "v1"
+    },
     "id" : "1",
+    "uri" : "pipelines/web_vectorize",
     "language" : "python",
-    "fabricId" : "1777",
+    "fabricId" : "9495",
     "frontEndLanguage" : "sql",
     "mode" : "batch",
     "udfs" : {
       "language" : "python",
       "udfs" : [ ],
       "functionPackageName" : "maciej_prophecy.genaichatbottemplate.functions",
-      "sharedFunctionPackageNames" : [ ]
+      "sharedFunctionPackageNames" : [ "prophecy.spark_basic.functions", "prophecy.streaming.functions", "prophecy.warehouse.functions" ]
     },
     "udafs" : {
       "language" : "python",
@@ -34,21 +38,20 @@
     "hadoopConf" : [ ],
     "codeMode" : "sparse",
     "buildSystem" : "maven",
-    "externalDependencies" : [ {
-      "type" : "pypi",
-      "id" : "KfvmV",
-      "name" : "Prophecy Spark AI (Python)",
-      "enabled" : true,
-      "package" : "prophecy-spark-ai==0.1.8"
+    "externalDependencies" : [ ],
+    "dependentProjectExternalDependencies" : [ {
+      "projectUID" : "12654",
+      "projectName" : "ProphecySparkBasicsPython",
+      "externalDependencies" : [ ]
     }, {
-      "type" : "coordinates",
-      "coordinates" : "io.prophecy:spark-ai_2.12:0.1.8",
-      "name" : "Prophecy Spark AI",
-      "enabled" : true,
-      "id" : "xs0D8",
-      "exclusions" : [ ]
+      "projectUID" : "12656",
+      "projectName" : "ProphecyStreamingPython",
+      "externalDependencies" : [ ]
+    }, {
+      "projectUID" : "12655",
+      "projectName" : "ProphecyWarehousePython",
+      "externalDependencies" : [ ]
     } ],
-    "dependentProjectExternalDependencies" : [ ],
     "isImported" : false,
     "interimMode" : "Full",
     "interimModeEnabled" : true,
@@ -130,7 +133,8 @@
           "slug" : "out"
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "datasetId" : "datasets/web_silver_content_vectorized"
@@ -195,7 +199,8 @@
           "slug" : "out"
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "explodedColsNewName" : [ {
@@ -225,6 +230,10 @@
         "columnsSelector" : [ "pgKIxJoBh7GmFiu9irHBF$$QPf0tJb5qVvo_WGVLuvL4##url", "pgKIxJoBh7GmFiu9irHBF$$QPf0tJb5qVvo_WGVLuvL4##result_chunks" ],
         "explodeColumns" : [ ],
         "delimiter" : "-"
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12654.git&subPath=&tag=0.2.3&projectSubscriptionProjectId=12654&path=gems/FlattenSchema",
+        "projectName" : "ProphecySparkBasicsPython"
       }
     },
     "tXFUS98cX9nDoXkXA5VXK$$KjsAnwsTr7t2-ylPy0wim" : {
@@ -292,7 +301,8 @@
         } ],
         "outputs" : [ ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "datasetId" : "datasets/all_vectors_silver"
@@ -407,7 +417,8 @@
           "isStreaming" : false
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : true
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "qa_query_column_name" : null,
@@ -489,7 +500,8 @@
         } ],
         "outputs" : [ ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "datasetId" : "datasets/web_silver_content_vectorized"
@@ -541,7 +553,8 @@
           "slug" : "out"
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "importLanguage" : "${$.workflow.metainfo.frontEndLanguage}",
@@ -570,6 +583,10 @@
         "importString" : "",
         "activeTab" : "expressions",
         "columnsSelector" : [ "wEkAbWnpNA8A7AodtMXce$$yLXwVvbTrxcuxU1g-Ttki##content_chunk", "wEkAbWnpNA8A7AodtMXce$$yLXwVvbTrxcuxU1g-Ttki##url" ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12654.git&subPath=&tag=0.2.3&projectSubscriptionProjectId=12654&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
       }
     },
     "Xg-i-w10XfJrcx8dVf8yw$$N9dVpgGbJgQgOn11xfJIo" : {
@@ -649,7 +666,8 @@
           "slug" : "out"
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "columnsSelector" : [ ],
@@ -657,6 +675,10 @@
           "format" : "sql",
           "expression" : "openai_error is null and instr(url, '/tags') = 0"
         }
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12654.git&subPath=&tag=0.2.3&projectSubscriptionProjectId=12654&path=gems/Filter",
+        "projectName" : "ProphecySparkBasicsPython"
       }
     },
     "esrRqdxQBkBoW4GZax0hQ$$gKFSt-YDIrUP8m9VsKDvc" : {
@@ -736,7 +758,8 @@
           "slug" : "out"
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "importLanguage" : "${$.workflow.metainfo.frontEndLanguage}",
@@ -772,6 +795,10 @@
         "importString" : "",
         "activeTab" : "expressions",
         "columnsSelector" : [ ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12654.git&subPath=&tag=0.2.3&projectSubscriptionProjectId=12654&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
       }
     },
     "7cXG5RvQdO6aRXdSLYQZ4$$qKbLiZXWw0p5NbdD7Ro7H" : {
@@ -794,7 +821,8 @@
           "slug" : "out"
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "datasetId" : "datasets/web_bronze_content"
@@ -882,7 +910,8 @@
           "isStreaming" : false
         } ],
         "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : true
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
       },
       "properties" : {
         "operation" : "text_split_into_chunks",
@@ -895,6 +924,7 @@
     "inputs" : [ ],
     "outputs" : [ ],
     "selectedInputFields" : [ ],
-    "isCustomOutputSchema" : false
+    "isCustomOutputSchema" : false,
+    "autoUpdateOnRun" : false
   }
 }

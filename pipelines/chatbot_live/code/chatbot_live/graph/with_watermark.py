@@ -7,4 +7,4 @@ from chatbot_live.config.ConfigStore import *
 from chatbot_live.udfs.UDFs import *
 
 def with_watermark(spark: SparkSession, with_original_content: DataFrame) -> DataFrame:
-    return with_original_content.withWatermark("created_at", "1 second")
+    return with_original_content

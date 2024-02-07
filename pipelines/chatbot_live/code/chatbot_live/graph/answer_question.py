@@ -15,9 +15,20 @@ def answer_question(spark: SparkSession, Aggregate_1: DataFrame) -> DataFrame:
         .withColumn("_context", col("content_chunk"))\
         .withColumn("_query", col("input"))\
         .withColumn(
-          "openai_answer",
-          expr(
-            "openai_answer_question(_context, _query, \" Answer the question based on the context below. \n\nContext:\n```\n{context}\n```\n\nQuestion: \n```\n{query}\n```\n\nAnswer:\n \")"
+          "_template",
+          lit(
+            """Answer the question based on the context below.
+Context:
+```
+{context}
+```
+Question: 
+```
+{query}
+```
+Answer:
+"""
           )
         )\
+        .withColumn("openai_answer", expr("openai_answer_question(_context, _query, _template)"))\
         .drop("_context", "_query")

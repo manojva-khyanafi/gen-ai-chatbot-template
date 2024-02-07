@@ -1,7 +1,6 @@
 from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
-from prophecy.utils import *
 from web_vectorize.config.ConfigStore import *
 from web_vectorize.udfs.UDFs import *
 from prophecy.utils import *
@@ -30,8 +29,14 @@ def main():
     Utils.initializeFromArgs(spark, parse_args())
     spark.conf.set("prophecy.metadata.pipeline.uri", "pipelines/web_vectorize")
     registerUDFs(spark)
-    
-    MetricsCollector.start(spark = spark, pipelineId = "pipelines/web_vectorize")
+
+    try:
+        
+        MetricsCollector.start(spark = spark, pipelineId = "pipelines/web_vectorize", config = Config)
+    except :
+        
+        MetricsCollector.start(spark = spark, pipelineId = "pipelines/web_vectorize")
+
     pipeline(spark)
     MetricsCollector.end(spark)
 

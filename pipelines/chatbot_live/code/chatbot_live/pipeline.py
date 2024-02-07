@@ -1,7 +1,6 @@
 from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
-from prophecy.utils import *
 from chatbot_live.config.ConfigStore import *
 from chatbot_live.udfs.UDFs import *
 from prophecy.utils import *
@@ -34,8 +33,14 @@ def main():
     Utils.initializeFromArgs(spark, parse_args())
     spark.conf.set("prophecy.metadata.pipeline.uri", "pipelines/chatbot_live")
     registerUDFs(spark)
-    
-    MetricsCollector.start(spark = spark, pipelineId = "pipelines/chatbot_live")
+
+    try:
+        
+        MetricsCollector.start(spark = spark, pipelineId = "pipelines/chatbot_live", config = Config)
+    except :
+        
+        MetricsCollector.start(spark = spark, pipelineId = "pipelines/chatbot_live")
+
     pipeline(spark)
     
     spark.streams.resetTerminated()

@@ -10,3 +10,5 @@ dependencies:
   id: xs0D8
   name: Prophecy Spark AI
   enabled: true
+pipelineVersion:
+  version: '2'

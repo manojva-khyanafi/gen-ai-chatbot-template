@@ -7,4 +7,4 @@ from web_vectorize.config.ConfigStore import *
 from web_vectorize.udfs.UDFs import *
 
 def content_vectors_read(spark: SparkSession) -> DataFrame:
-    return spark.read.table(f"gen_ai.web_silver.content_vectorized")
+    return spark.read.table("`gen_ai`.`web_silver`.`content_vectorized`")
